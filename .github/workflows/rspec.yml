@@ -1,8 +1,12 @@
 name: everyday-rails-ci
 run-name: rspec-ci
 on:
-  push
-  pull_request
+  push:
+    branches:
+      - 'main'
+      - 'feat*'
+  pull_request:
+    types: [ opened, ready_for_review ]
 jobs:
   exec-rspec:
     runs-on: ubuntu-latest
