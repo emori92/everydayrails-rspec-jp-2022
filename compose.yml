@@ -1,0 +1,23 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/everyday
+    ports:
+      - 3000:3000
+    command: bin/rails s -p 3000 -b 0.0.0.0
+    depends_on:
+      - db
+    labels:
+      - dev.orbstack.domains=*.everyday.local
+  db:
+    build: ./docker/postgres
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'rails'
+      POSTGRES_PASSWORD: 'everyday'
+    labels:
+      - dev.orbstack.domains=*.everyday-db.local
+volumes:
+  postgres-volume:

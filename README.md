@@ -25,3 +25,40 @@ Gitが苦手な方は、GitHubの便利な ブランチ機能を利用してく�
 フィルターで特定のブランチを選択し、オンラインでソースコードをブラウズすることができます。
 
 Gitについてもっと詳しく知りたい方は、無料で公開されている「 [Git Immersion](http://gitimmersion.com/) 」または「 [Try Git](http://www.codeschool.com/courses/try-git) 」（いずれも英語版）がお勧めです。
+
+----
+
+## 環境構築
+
+コンテナ環境を作成するた以下のコマンドを実行
+
+```sh
+docker compose up -d
+```
+
+Postgresでユーザを作成するために、Postgresのコンテナ内で以下のコマンドを実行してください。
+
+```sh
+docker compose exec db psql -U postgres
+```
+
+```sql
+CREATE ROLE rails
+  CREATEDB
+  LOGIN
+  REPLICATION
+  BYPASSRLS
+  PASSWORD 'everyday'
+;
+```
+
+ユーザ(ロール)の作成に成功したら、RailsコマンドでDB作成・migration実行します。
+
+```sh
+docker compose exec web bash
+```
+
+```sh
+bin/rails db:create
+bin/rails db:migrate
+```
