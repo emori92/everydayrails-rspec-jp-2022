@@ -21,6 +21,8 @@ jobs:
       - name: bundle install
         run: bin/bundle install
       - name: Migration
+        env:
+          POSTGRES_HOST: localhost
         run: bin/rails db:migrate
       - name: Run test
         run: bin/bundle exec rspec
