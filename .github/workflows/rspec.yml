@@ -26,6 +26,8 @@ jobs:
           RAILS_ENV: test
         run: bin/rails db:migrate
       - name: Run test
+        env:
+          POSTGRES_HOST: localhost
         run: bin/bundle exec rspec
     services:
       db:
